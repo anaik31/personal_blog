@@ -1,10 +1,21 @@
 <template>
-<Header />
+  <v-app>
+    <Nav />
+    <v-main>
+      <Home />
+    </v-main>
+  </v-app>
 </template>
 
 <script setup>
-import Header from './components/Header.vue'
+import Nav from './components/Nav.vue'
+import Home from './components/Home.vue'
 </script>
 
-<style scoped>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+#app {
+  font-family: 'Montserrat', sans-serif;
+}
 </style>
