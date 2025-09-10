@@ -1,18 +1,21 @@
 <template>
   <v-app>
-    <v-app-bar :elevation="8" >
-      <v-app-bar-title>Read With Arpeet</v-app-bar-title>
+    <v-app-bar :elevation="8" style="padding:10px;">
+      <v-app-bar-title style="font-size: 30px;">Read With Arpeet</v-app-bar-title>
       <v-btn>Sports</v-btn>
       <v-btn>TV Shows</v-btn>
       <v-btn>Hobbies</v-btn>
       <v-btn>About</v-btn>
-      <font-awesome-icon :icon="['fab', 'linkedin']" />
-      <font-awesome-icon :icon="['fab', 'github']" />
+      <v-btn>
+      <font-awesome-icon :icon="['fab', 'linkedin']" size = "2x" />
+      </v-btn>
+      <v-btn>
+      <font-awesome-icon :icon="['fab', 'github']" size = "2x"/>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
       <v-container>
-        <h1>Welcome to My Personal Blog</h1>
       </v-container>
     </v-main>
   </v-app>
