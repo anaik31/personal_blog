@@ -2,14 +2,13 @@
   <v-app>
     <Nav />
     <v-main>
-      <Home />
+      <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script setup>
 import Nav from './components/Nav.vue'
-import Home from './components/Home.vue'
 </script>
 
 <style>
