@@ -1,41 +1,64 @@
 <template>
-  <img src="/img/Home.JPG" alt="Home" class="hero-img"></img>
+  <div class="home-container">
+    <!-- Hero Image -->
+    <img src="/img/Home.JPG" alt="Home" class="hero-img" />
 
-  <h3 class="latest-posts">Latest Posts</h3>
+    <!-- Section Divider -->
+    <h3 class="latest-posts">Latest Posts</h3>
+  </div>
 </template>
 
-<script>
+<script setup>
 </script>
 
-<style>
-.hero-img {
-  width: 100%;           
-  max-height: 80%;    
-  object-fit:cover;    
-  display: block;     
-  border-radius: 6%;
-}
-.latest-posts{
+<style scoped>
+.home-container {
   text-align: center;
-  align-items: center;
-  margin-top: 3%;
+}
+
+/* Hero Image */
+.hero-img {
+  width: 100%;
+  max-height: 70vh;   /* limits height to viewport */
+  object-fit: cover;  /* keeps aspect ratio, crops nicely */
+  display: block;
+  border-radius: 6%;
+  margin: 0 auto;
+}
+
+/* Divider Heading */
+.latest-posts {
   display: flex;
-  margin: 20px 0;
-  padding: 0 40px;
+  align-items: center;
+  text-align: center;
+  margin: 30px 0;
+  padding: 0 20px;
+  font-size: 1.5rem;   /* scales better */
+  font-weight: 600;
 }
 
 .latest-posts::before,
 .latest-posts::after {
   content: "";
-  flex: 1;                  
-  border-bottom: 1px solid #000; 
+  flex: 1;
+  border-bottom: 1px solid #000;
 }
 
 .latest-posts::before {
-  margin-right: 15px;   
+  margin-right: 15px;
 }
 
 .latest-posts::after {
   margin-left: 15px;
+}
+
+@media (max-width: 600px) {
+  .hero-img {
+    max-height: 40vh;
+  }
+  .latest-posts {
+    font-size: 1.2rem;
+    padding: 0 10px;
+  }
 }
 </style>
