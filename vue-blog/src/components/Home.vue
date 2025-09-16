@@ -19,8 +19,8 @@
 /* Hero Image */
 .hero-img {
   width: 100%;
-  max-height: 70vh;   /* limits height to viewport */
-  object-fit: cover;  /* keeps aspect ratio, crops nicely */
+  max-height: 70vh;  
+  object-fit: cover;  
   display: block;
   border-radius: 6%;
   margin: 0 auto;
@@ -33,7 +33,7 @@
   text-align: center;
   margin: 30px 0;
   padding: 0 20px;
-  font-size: 1.5rem;   /* scales better */
+  font-size: 1.5rem; 
   font-weight: 600;
 }
 
