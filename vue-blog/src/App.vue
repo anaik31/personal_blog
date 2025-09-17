@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Nav />
-    <v-main>
+    <v-main class="mt-12">
       <v-container fluid>
         <router-view />
       </v-container>
