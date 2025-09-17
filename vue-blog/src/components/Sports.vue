@@ -60,7 +60,19 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
+
+const posts = ref([]);
+
+// Fetch posts from backend
+const fetchPosts = async () => {
+  const res = await fetch("http://localhost:5000/posts?category=sports"); // adjust backend URL
+  posts.value = await res.json();
+};
+
+onMounted(fetchPosts);
 </script>
+
 
 <style scoped>
 .article-card {
