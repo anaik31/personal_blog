@@ -5,7 +5,7 @@
       <v-col cols="12" sm="6" md="4">
         <v-card elevation="4" class="article-card">
           <v-img
-            src="/img/sports-article1.jpg"
+            src="img/nbafinals.jpg"
             height="200px"
             cover
           ></v-img>
@@ -23,7 +23,7 @@
       <v-col cols="12" sm="6" md="4">
         <v-card elevation="4" class="article-card">
           <v-img
-            src="/img/sports-article2.jpg"
+            src="img/psgfinals.webp"
             height="200px"
             cover
           ></v-img>
@@ -41,7 +41,7 @@
       <v-col cols="12" sm="6" md="4">
         <v-card elevation="4" class="article-card">
           <v-img
-            src="/img/sports-article2.jpg"
+            src="img/clemsonfootball.webp"
             height="200px"
             cover
           ></v-img>
