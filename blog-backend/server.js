@@ -6,7 +6,7 @@ import db from "./db.js";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'https://anpersonal.com/blog/' }));
 app.use(express.json());
 
 // Get posts from MySQL
