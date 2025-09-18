@@ -33,10 +33,13 @@ import { ref, onMounted } from "vue";
 
 const posts = ref([]);
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const fetchPosts = async () => {
-  const res = await fetch("http://localhost:5050/posts?category=sports");
-posts.value = await res.json();
+  const res = await fetch(`${API_URL}/posts?category=sports`);
+  posts.value = await res.json();
 };
+
 
 const readPost = (id) => {
   console.log("Read post", id); 
