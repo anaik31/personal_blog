@@ -8,7 +8,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://anpersonal.com",
-  "https://anpersonal.com/blog"
+  "https://anpersonal.com/blog/"
 ];
 
 app.use(cors({
