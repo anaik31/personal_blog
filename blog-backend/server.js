@@ -5,12 +5,13 @@ import db from "./db.js";
 
 dotenv.config();
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-// get a post
+// Get posts from MySQL
 app.get("/posts", async (req, res) => {
-  const category = req.query.category;
+  const category = req.query.category || null;
   try {
     let query = "SELECT * FROM posts ORDER BY created_at DESC";
     const params = [];
@@ -21,29 +22,12 @@ app.get("/posts", async (req, res) => {
     }
 
     const [rows] = await db.query(query, params);
-    res.json(rows);
+    res.json(rows); 
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Database error" });
   }
 });
 
-
-// Add a new post
-app.post("/posts", async (req, res) => {
-  const { title, content, author, category, image } = req.body; // added category & image
-  try {
-    const [result] = await db.query(
-      "INSERT INTO posts (title, content, author, category, image) VALUES (?, ?, ?, ?, ?)",
-      [title, content, author, category, image]
-    );
-    res.json({ id: result.insertId, title, content, author, category, image });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Database error" });
-  }
-});
-
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = 5050;
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));

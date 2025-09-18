@@ -1,57 +1,26 @@
 <template>
   <v-container class="py-6">
     <v-row>
-
-      <v-col cols="12" sm="6" md="4">
+      <v-col
+        v-for="post in posts"
+        :key="post.id"
+        cols="12"
+        sm="6"
+        md="4"
+      >
         <v-card elevation="4" class="article-card">
           <v-img
-            src="img/nbafinals.jpg"
+            :src="post.image || 'img/default.jpg'"  
             height="200px"
             cover
           ></v-img>
-          <v-card-title>🏀 NBA Finals Recap</v-card-title>
-          <v-card-subtitle>September 2025</v-card-subtitle>
+          <v-card-title>{{ post.title }}</v-card-title>
+          <v-card-subtitle>{{ new Date(post.created_at).toLocaleDateString() }}</v-card-subtitle>
           <v-card-text>
-            A quick breakdown of last night's thrilling matchup...
+            {{ post.content }}
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" text>Read More</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" sm="6" md="4">
-        <v-card elevation="4" class="article-card">
-          <v-img
-            src="img/psgfinals.webp"
-            height="200px"
-            cover
-          ></v-img>
-          <v-card-title>⚽ Champions League Updates</v-card-title>
-          <v-card-subtitle>September 2025</v-card-subtitle>
-          <v-card-text>
-            The biggest surprises from this week's matches...
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" text>Read More</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" sm="6" md="4">
-        <v-card elevation="4" class="article-card">
-          <v-img
-            src="img/clemsonfootball.webp"
-            height="200px"
-            cover
-          ></v-img>
-          <v-card-title>🏈 Clemson Football Updates</v-card-title>
-          <v-card-subtitle>September 2025</v-card-subtitle>
-          <v-card-text>
-            The biggest questions after the Georgia Tech loss...
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" text>Read More</v-btn>
+            <v-btn color="primary" text @click="readPost(post.id)">Read More</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -64,15 +33,17 @@ import { ref, onMounted } from "vue";
 
 const posts = ref([]);
 
-// Fetch posts from backend
 const fetchPosts = async () => {
-  const res = await fetch("http://localhost:5000/posts?category=sports"); // adjust backend URL
-  posts.value = await res.json();
+  const res = await fetch("http://localhost:5050/posts?category=sports");
+posts.value = await res.json();
+};
+
+const readPost = (id) => {
+  console.log("Read post", id); 
 };
 
 onMounted(fetchPosts);
 </script>
-
 
 <style scoped>
 .article-card {
