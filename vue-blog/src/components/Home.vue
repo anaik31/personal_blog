@@ -1,9 +1,9 @@
 <template>
   <div class="home-container">
-    <!-- Hero Image -->
+  
     <img src="/img/Home.JPG" alt="Home" class="hero-img" />
 
-    <!-- Section Divider -->
+
     <h3 class="latest-posts">Latest Posts</h3>
   </div>
 </template>
@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-/* Hero Image */
+
 .hero-img {
   width: 100%;
   max-height: 70vh;  
