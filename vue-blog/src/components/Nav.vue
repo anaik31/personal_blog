@@ -26,6 +26,7 @@
 .nav-links {
   display: flex;
   overflow-x: auto;
+  align-items: center;
   gap: 10px;
   max-width: 100%;
   padding-bottom: 5px; 
