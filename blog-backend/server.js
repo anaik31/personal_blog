@@ -1,30 +1,42 @@
+// server.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import db from "./db.js";
+import db from "./db.js"; // your MySQL pool
 
 dotenv.config();
+
 const app = express();
 
+// Use PORT from environment or fallback to 5050
+const PORT = process.env.PORT || 5050;
+
+// CORS configuration
 const allowedOrigins = [
   "https://anpersonal.com",
-  "https://anpersonal.com/blog/"
+  "https://anpersonal.com/blog",
 ];
 
-app.use(cors({
-  origin: function(origin, callback) {
-    // allow requests with no origin like mobile apps or curl
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow curl or mobile apps
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `CORS policy does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
 
 app.use(express.json());
+
+// Health check route (optional, useful for Passenger)
+app.get("/test", (req, res) => {
+  res.json({ message: "Server is working" });
+});
 
 // Get posts from MySQL
 app.get("/posts", async (req, res) => {
@@ -39,12 +51,14 @@ app.get("/posts", async (req, res) => {
     }
 
     const [rows] = await db.query(query, params);
-    res.json(rows); 
+    res.json(rows);
   } catch (err) {
-    console.error(err);
+    console.error("Database error:", err);
     res.status(500).json({ message: "Database error" });
   }
 });
 
-const PORT = 5050;
-app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
+// This ensures Passenger can detect the Node app
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
