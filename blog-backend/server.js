@@ -12,10 +12,11 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 
 // CORS configuration
-const allowedOrigins = [
-  "https://anpersonal.com",
-  "https://anpersonal.com/blog",
-];
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? ["https://anpersonal.com", "https://anpersonal.com/blog"]
+    : ["http://localhost:5173"];
+
 
 app.use(
   cors({

@@ -34,8 +34,24 @@ import { ref, onMounted } from "vue";
 const posts = ref([]);
 
 const fetchPosts = async () => {
-  const res = await fetch("https://anpersonal.com/blog-api-backend/posts?category=sports");
-  posts.value = await res.json();
+  try {
+    // Base URL depending on environment
+    const baseUrl =
+      window.location.hostname === "localhost"
+        ? "http://localhost:5050"
+        : "https://anpersonal.com/blog-api-backend";
+
+    const res = await fetch(`${baseUrl}/posts?category=sports`);
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
+    posts.value = await res.json();
+  } catch (err) {
+    console.error("Failed to fetch posts:", err);
+    posts.value = [];
+  }
 };
 
 
