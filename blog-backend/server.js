@@ -3,20 +3,29 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import db from "./db.js"; // your MySQL pool
+import fs from "fs";
 
 dotenv.config();
 
 const app = express();
-
-// Use PORT from environment or fallback to 5050
 const PORT = process.env.PORT || 5050;
+
+// Catch uncaught exceptions and unhandled rejections
+process.on("uncaughtException", (err) => {
+  fs.appendFileSync("error.log", `[UNCAUGHT] ${new Date()}: ${err.stack}\n`);
+  console.error(err);
+});
+
+process.on("unhandledRejection", (reason) => {
+  fs.appendFileSync("error.log", `[REJECTION] ${new Date()}: ${reason}\n`);
+  console.error(reason);
+});
 
 // CORS configuration
 const allowedOrigins =
   process.env.NODE_ENV === "production"
     ? ["https://anpersonal.com", "https://anpersonal.com/blog"]
     : ["http://localhost:5173"];
-
 
 app.use(
   cors({
@@ -34,7 +43,7 @@ app.use(
 
 app.use(express.json());
 
-// Health check route (optional, useful for Passenger)
+// Health check route
 app.get("/test", (req, res) => {
   res.json({ message: "Server is working" });
 });
@@ -51,15 +60,19 @@ app.get("/posts", async (req, res) => {
       params.push(category);
     }
 
+    console.log("Executing query:", query, params); 
+
     const [rows] = await db.query(query, params);
     res.json(rows);
   } catch (err) {
+    // Log full error to console and file
     console.error("Database error:", err);
-    res.status(500).json({ message: "Database error" });
+    fs.appendFileSync("error.log", `[DB ERROR] ${new Date()}: ${err.stack}\n`);
+    res.status(500).json({ message: "Database error", error: err.message });
   }
 });
 
-// This ensures Passenger can detect the Node app
+// Start server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });

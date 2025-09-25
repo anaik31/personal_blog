@@ -39,7 +39,7 @@ const fetchPosts = async () => {
     const baseUrl =
       window.location.hostname === "localhost"
         ? "http://localhost:5050"
-        : "https://anpersonal.com/blog-api-backend";
+        : "https://anpersonal.com/blog-backend";
 
     const res = await fetch(`${baseUrl}/posts?category=sports`);
 
